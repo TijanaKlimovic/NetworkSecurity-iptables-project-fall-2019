@@ -25,6 +25,9 @@ def createRules(G, testcase, OUTPUT_DIR, file):
     filename, file_extension = os.path.splitext(file)
     #print(filename)
 
+    if not OUTPUT_DIR.endswith('/'):
+        OUTPUT_DIR = OUTPUT_DIR + '/'
+
     if not os.path.exists(OUTPUT_DIR + filename):
         os.mkdir(OUTPUT_DIR + filename)
 
@@ -94,7 +97,7 @@ def createRules(G, testcase, OUTPUT_DIR, file):
      
     for node in G.nodes:
         if nodeDict[node]['type'] == 'router':
-            f = open(OUTPUT_DIR + filename + '/' + nodeDict[node]['id'], "a+")
+            f = open(OUTPUT_DIR + '' + filename + '/' + nodeDict[node]['id'], "a+")
             f.write('\n')
             f.write('COMMIT')
             f.write('\n')
@@ -140,10 +143,10 @@ if __name__ == '__main__':
     if not os.path.exists(OUTPUT_DIR):
         os.mkdir(OUTPUT_DIR)
     else:
-        shutil.rmtree(OUTPUT_DIR)   #if it delete it recursively
+        shutil.rmtree(OUTPUT_DIR)   #if it does delete it recursively
         os.mkdir(OUTPUT_DIR) # create a new empty one
 
-    #print(INPUT_DIR, " ", OUTPUT_DIR)
+    print(INPUT_DIR, " ", OUTPUT_DIR)
     directory = os.fsencode(INPUT_DIR)
 
     for file in os.listdir(directory):
