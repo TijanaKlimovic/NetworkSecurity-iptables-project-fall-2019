@@ -68,31 +68,41 @@ def createRules(G, testcase, OUTPUT_DIR, file):
             o_edge_attr = G[path[i+1]][path[i+2]]       #i+1 is the router node always
             f = open(OUTPUT_DIR + filename + '/' + nodeDict[path[i+1]]['id'], "a+")
 
-            #write rules based on c
-            f.write('-A FORWARD -p ' + c['protocol'] + \
-                    ' --sport ' + str(c['sourcePortStart']) + ':' + str(c['sourcePortEnd']) + \
-                    ' --dport ' + str(c['targetPortStart']) + ':' + str(c['targetPortEnd']) + \
-                    ' -s ' + nodeDict[s]['subnet'] + ' -d ' + nodeDict[t]['subnet'] + \
-                    ' -i ' + i_edge_attr['interface'] + ' -o ' + o_edge_attr['interface'] + \
-                    ' -m state --state NEW,ESTABLISHED -j ACCEPT\n')
 
-            if c['direction'] == 'bidirectional':
-                # case of udp and tcp
-                if c['protocol'] == 'udp' or c['protocol'] == 'tcp':
-                    f.write('-A FORWARD -p ' + c['protocol'] + \
-                            ' --sport ' + str(c['targetPortStart']) + ':' + str(c['targetPortEnd']) + \
-                            ' --dport ' + str(c['sourcePortStart']) + ':' + str(c['sourcePortEnd']) + \
-                            ' -s ' + nodeDict[t]['subnet'] + ' -d ' + nodeDict[s]['subnet'] + \
-                            ' -i ' + o_edge_attr['interface'] + ' -o ' + i_edge_attr['interface'] + \
-                            ' -m state --state ESTABLISHED -j ACCEPT\n')
+            #write rules based on c
+            if c['protocol'] == 'udp' or c['protocol'] == 'tcp':
+                f.write('-A FORWARD -p ' + c['protocol'] + \
+                        ' --sport ' + str(c['sourcePortStart']) + ':' + str(c['sourcePortEnd']) + \
+                        ' --dport ' + str(c['targetPortStart']) + ':' + str(c['targetPortEnd']) + \
+                        ' -s ' + nodeDict[s]['subnet'] + ' -d ' + nodeDict[t]['subnet'] + \
+                        ' -i ' + i_edge_attr['interface'] + ' -o ' + o_edge_attr['interface'] + \
+                        ' -m state --state NEW,ESTABLISHED -j ACCEPT\n')
+
+                if c['direction'] == 'bidirectional':
+                    # case of udp and tcp
+
+                        f.write('-A FORWARD -p ' + c['protocol'] + \
+                                ' --sport ' + str(c['targetPortStart']) + ':' + str(c['targetPortEnd']) + \
+                                ' --dport ' + str(c['sourcePortStart']) + ':' + str(c['sourcePortEnd']) + \
+                                ' -s ' + nodeDict[t]['subnet'] + ' -d ' + nodeDict[s]['subnet'] + \
+                                ' -i ' + o_edge_attr['interface'] + ' -o ' + i_edge_attr['interface'] + \
+                                ' -m state --state ESTABLISHED -j ACCEPT\n')
                 # case of icmp
-                else:
-                    f.write('-A FORWARD -p ' + c['protocol'] + \
-                            ' --sport ' + str(c['targetPortStart']) + ':' + str(c['targetPortEnd']) + \
-                            ' --dport ' + str(c['sourcePortStart']) + ':' + str(c['sourcePortEnd']) + \
-                            ' -s ' + nodeDict[t]['subnet'] + ' -d ' + nodeDict[s]['subnet'] + \
-                            ' -i ' + o_edge_attr['interface'] + ' -o ' + i_edge_attr['interface'] + \
-                            ' -m state --state NEW,ESTABLISHED -j ACCEPT\n')
+            else:
+                f.write('-A FORWARD -p ' + c['protocol'] + \
+                        ' --sport ' + str(c['sourcePortStart']) + ':' + str(c['sourcePortEnd']) + \
+                        ' --dport ' + str(c['targetPortStart']) + ':' + str(c['targetPortEnd']) + \
+                        ' -s ' + nodeDict[s]['subnet'] + ' -d ' + nodeDict[t]['subnet'] + \
+                        ' -i ' + i_edge_attr['interface'] + ' -o ' + o_edge_attr['interface'] + \
+                        ' -j ACCEPT\n')
+                f.write('-A FORWARD -p ' + c['protocol'] + \
+                        ' --sport ' + str(c['targetPortStart']) + ':' + str(c['targetPortEnd']) + \
+                        ' --dport ' + str(c['sourcePortStart']) + ':' + str(c['sourcePortEnd']) + \
+                        ' -s ' + nodeDict[t]['subnet'] + ' -d ' + nodeDict[s]['subnet'] + \
+                        ' -i ' + o_edge_attr['interface'] + ' -o ' + i_edge_attr['interface'] + \
+                        ' -j ACCEPT\n')
+
+
             i = i+2
      
     for node in G.nodes:
