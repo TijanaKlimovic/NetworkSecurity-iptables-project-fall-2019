@@ -19,16 +19,16 @@ COMMIT
 -A FORWARD -p tcp --sport 39534:39585 --dport 6015:6022 -s 0.0.0.0/6 -d 24.0.0.0/6 -i eth0 -o eth6 -m state --state NEW,ESTABLISHED -j ACCEPT
 -A FORWARD -p tcp --sport 6015:6022 --dport 39534:39585 -s 24.0.0.0/6 -d 0.0.0.0/6 -i eth6 -o eth0 -m state --state ESTABLISHED -j ACCEPT
 -A FORWARD -p udp --sport 58480:58577 --dport 4977:4997 -s 68.0.0.0/6 -d 60.0.0.0/6 -i eth17 -o eth15 -m state --state NEW,ESTABLISHED -j ACCEPT
--A FORWARD -p icmp --sport 0:0 --dport 0:0 -s 28.0.0.0/6 -d 8.0.0.0/6 -i eth7 -o eth2 -m state --state NEW,ESTABLISHED -j ACCEPT
--A FORWARD -p icmp --sport 0:0 --dport 0:0 -s 8.0.0.0/6 -d 28.0.0.0/6 -i eth2 -o eth7 -m state --state NEW,ESTABLISHED -j ACCEPT
+-A FORWARD -p icmp -s 28.0.0.0/6 -d 8.0.0.0/6 -i eth7 -o eth2 -j ACCEPT
+-A FORWARD -p icmp -s 8.0.0.0/6 -d 28.0.0.0/6 -i eth2 -o eth7 -j ACCEPT
 -A FORWARD -p tcp --sport 52293:52319 --dport 63899:63958 -s 68.0.0.0/6 -d 20.0.0.0/6 -i eth17 -o eth5 -m state --state NEW,ESTABLISHED -j ACCEPT
 -A FORWARD -p tcp --sport 63899:63958 --dport 52293:52319 -s 20.0.0.0/6 -d 68.0.0.0/6 -i eth5 -o eth17 -m state --state ESTABLISHED -j ACCEPT
 -A FORWARD -p udp --sport 46516:46558 --dport 25194:25246 -s 52.0.0.0/6 -d 56.0.0.0/6 -i eth13 -o eth14 -m state --state NEW,ESTABLISHED -j ACCEPT
 -A FORWARD -p udp --sport 25194:25246 --dport 46516:46558 -s 56.0.0.0/6 -d 52.0.0.0/6 -i eth14 -o eth13 -m state --state ESTABLISHED -j ACCEPT
 -A FORWARD -p tcp --sport 13640:13647 --dport 51514:51517 -s 72.0.0.0/6 -d 52.0.0.0/6 -i eth18 -o eth13 -m state --state NEW,ESTABLISHED -j ACCEPT
 -A FORWARD -p tcp --sport 51514:51517 --dport 13640:13647 -s 52.0.0.0/6 -d 72.0.0.0/6 -i eth13 -o eth18 -m state --state ESTABLISHED -j ACCEPT
--A FORWARD -p icmp --sport 0:0 --dport 0:0 -s 48.0.0.0/6 -d 36.0.0.0/6 -i eth12 -o eth9 -m state --state NEW,ESTABLISHED -j ACCEPT
--A FORWARD -p icmp --sport 0:0 --dport 0:0 -s 36.0.0.0/6 -d 48.0.0.0/6 -i eth9 -o eth12 -m state --state NEW,ESTABLISHED -j ACCEPT
+-A FORWARD -p icmp -s 48.0.0.0/6 -d 36.0.0.0/6 -i eth12 -o eth9 -j ACCEPT
+-A FORWARD -p icmp -s 36.0.0.0/6 -d 48.0.0.0/6 -i eth9 -o eth12 -j ACCEPT
 -A FORWARD -p tcp --sport 47626:47674 --dport 48605:48655 -s 60.0.0.0/6 -d 68.0.0.0/6 -i eth15 -o eth17 -m state --state NEW,ESTABLISHED -j ACCEPT
 -A FORWARD -p tcp --sport 48605:48655 --dport 47626:47674 -s 68.0.0.0/6 -d 60.0.0.0/6 -i eth17 -o eth15 -m state --state ESTABLISHED -j ACCEPT
 -A FORWARD -p tcp --sport 60401:60457 --dport 15239:15270 -s 68.0.0.0/6 -d 56.0.0.0/6 -i eth17 -o eth14 -m state --state NEW,ESTABLISHED -j ACCEPT
@@ -55,8 +55,8 @@ COMMIT
 -A FORWARD -p udp --sport 6426:6486 --dport 1493:1494 -s 44.0.0.0/6 -d 36.0.0.0/6 -i eth11 -o eth9 -m state --state NEW,ESTABLISHED -j ACCEPT
 -A FORWARD -p udp --sport 1493:1494 --dport 6426:6486 -s 36.0.0.0/6 -d 44.0.0.0/6 -i eth9 -o eth11 -m state --state ESTABLISHED -j ACCEPT
 -A FORWARD -p udp --sport 13831:13907 --dport 7858:7859 -s 36.0.0.0/6 -d 56.0.0.0/6 -i eth9 -o eth14 -m state --state NEW,ESTABLISHED -j ACCEPT
--A FORWARD -p icmp --sport 0:0 --dport 0:0 -s 44.0.0.0/6 -d 72.0.0.0/6 -i eth11 -o eth18 -m state --state NEW,ESTABLISHED -j ACCEPT
--A FORWARD -p icmp --sport 0:0 --dport 0:0 -s 72.0.0.0/6 -d 44.0.0.0/6 -i eth18 -o eth11 -m state --state NEW,ESTABLISHED -j ACCEPT
+-A FORWARD -p icmp -s 44.0.0.0/6 -d 72.0.0.0/6 -i eth11 -o eth18 -j ACCEPT
+-A FORWARD -p icmp -s 72.0.0.0/6 -d 44.0.0.0/6 -i eth18 -o eth11 -j ACCEPT
 -A FORWARD -p udp --sport 31931:31941 --dport 25726:25795 -s 68.0.0.0/6 -d 16.0.0.0/6 -i eth17 -o eth4 -m state --state NEW,ESTABLISHED -j ACCEPT
 -A FORWARD -p udp --sport 294:315 --dport 53666:53732 -s 44.0.0.0/6 -d 76.0.0.0/6 -i eth11 -o eth19 -m state --state NEW,ESTABLISHED -j ACCEPT
 -A FORWARD -p udp --sport 51354:51393 --dport 19753:19834 -s 76.0.0.0/6 -d 4.0.0.0/6 -i eth19 -o eth1 -m state --state NEW,ESTABLISHED -j ACCEPT

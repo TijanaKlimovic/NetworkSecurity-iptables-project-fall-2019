@@ -18,7 +18,7 @@ COMMIT
 -A FORWARD -p udp --sport 21250:21264 --dport 40577:40586 -s 0.0.0.0/2 -d 64.0.0.0/2 -i eth0 -o eth1 -m state --state NEW,ESTABLISHED -j ACCEPT
 -A FORWARD -p tcp --sport 45946:46007 --dport 46986:47055 -s 0.0.0.0/2 -d 64.0.0.0/2 -i eth0 -o eth1 -m state --state NEW,ESTABLISHED -j ACCEPT
 -A FORWARD -p tcp --sport 46986:47055 --dport 45946:46007 -s 64.0.0.0/2 -d 0.0.0.0/2 -i eth1 -o eth0 -m state --state ESTABLISHED -j ACCEPT
--A FORWARD -p icmp --sport 0:0 --dport 0:0 -s 0.0.0.0/2 -d 64.0.0.0/2 -i eth0 -o eth1 -m state --state NEW,ESTABLISHED -j ACCEPT
--A FORWARD -p icmp --sport 0:0 --dport 0:0 -s 64.0.0.0/2 -d 0.0.0.0/2 -i eth1 -o eth0 -m state --state NEW,ESTABLISHED -j ACCEPT
+-A FORWARD -p icmp -s 0.0.0.0/2 -d 64.0.0.0/2 -i eth0 -o eth1 -j ACCEPT
+-A FORWARD -p icmp -s 64.0.0.0/2 -d 0.0.0.0/2 -i eth1 -o eth0 -j ACCEPT
 
 COMMIT

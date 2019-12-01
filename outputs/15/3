@@ -31,7 +31,7 @@ COMMIT
 -A FORWARD -p udp --sport 13273:13347 --dport 33969:33993 -s 48.0.0.0/5 -d 0.0.0.0/5 -i eth1 -o eth0 -m state --state ESTABLISHED -j ACCEPT
 -A FORWARD -p tcp --sport 47530:47539 --dport 34944:35026 -s 48.0.0.0/5 -d 24.0.0.0/5 -i eth1 -o eth0 -m state --state NEW,ESTABLISHED -j ACCEPT
 -A FORWARD -p tcp --sport 34944:35026 --dport 47530:47539 -s 24.0.0.0/5 -d 48.0.0.0/5 -i eth0 -o eth1 -m state --state ESTABLISHED -j ACCEPT
--A FORWARD -p icmp --sport 0:0 --dport 0:0 -s 48.0.0.0/5 -d 16.0.0.0/5 -i eth1 -o eth0 -m state --state NEW,ESTABLISHED -j ACCEPT
--A FORWARD -p icmp --sport 0:0 --dport 0:0 -s 16.0.0.0/5 -d 48.0.0.0/5 -i eth0 -o eth1 -m state --state NEW,ESTABLISHED -j ACCEPT
+-A FORWARD -p icmp -s 48.0.0.0/5 -d 16.0.0.0/5 -i eth1 -o eth0 -j ACCEPT
+-A FORWARD -p icmp -s 16.0.0.0/5 -d 48.0.0.0/5 -i eth0 -o eth1 -j ACCEPT
 
 COMMIT

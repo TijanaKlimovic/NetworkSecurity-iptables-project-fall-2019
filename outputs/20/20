@@ -9,8 +9,8 @@ COMMIT
 :INPUT DROP [0:0]
 :OUTPUT DROP [0:0]
 :FORWARD DROP [0:0]
--A FORWARD -p icmp --sport 0:0 --dport 0:0 -s 20.0.0.0/7 -d 42.0.0.0/7 -i eth0 -o eth1 -m state --state NEW,ESTABLISHED -j ACCEPT
--A FORWARD -p icmp --sport 0:0 --dport 0:0 -s 42.0.0.0/7 -d 20.0.0.0/7 -i eth1 -o eth0 -m state --state NEW,ESTABLISHED -j ACCEPT
+-A FORWARD -p icmp -s 20.0.0.0/7 -d 42.0.0.0/7 -i eth0 -o eth1 -j ACCEPT
+-A FORWARD -p icmp -s 42.0.0.0/7 -d 20.0.0.0/7 -i eth1 -o eth0 -j ACCEPT
 -A FORWARD -p udp --sport 4573:4599 --dport 44340:44430 -s 72.0.0.0/7 -d 68.0.0.0/7 -i eth1 -o eth0 -m state --state NEW,ESTABLISHED -j ACCEPT
 -A FORWARD -p udp --sport 43892:43959 --dport 37359:37363 -s 68.0.0.0/7 -d 30.0.0.0/7 -i eth0 -o eth1 -m state --state NEW,ESTABLISHED -j ACCEPT
 -A FORWARD -p tcp --sport 515:581 --dport 21999:22064 -s 10.0.0.0/7 -d 42.0.0.0/7 -i eth0 -o eth1 -m state --state NEW,ESTABLISHED -j ACCEPT

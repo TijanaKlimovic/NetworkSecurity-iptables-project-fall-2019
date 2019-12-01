@@ -16,14 +16,14 @@ COMMIT
 -A FORWARD -p tcp --sport 53381:53381 --dport 63560:63573 -s 32.0.0.0/5 -d 24.0.0.0/5 -i eth2 -o eth0 -m state --state NEW,ESTABLISHED -j ACCEPT
 -A FORWARD -p tcp --sport 63560:63573 --dport 53381:53381 -s 24.0.0.0/5 -d 32.0.0.0/5 -i eth0 -o eth2 -m state --state ESTABLISHED -j ACCEPT
 -A FORWARD -p udp --sport 60941:60986 --dport 58635:58698 -s 32.0.0.0/5 -d 16.0.0.0/5 -i eth2 -o eth1 -m state --state NEW,ESTABLISHED -j ACCEPT
--A FORWARD -p icmp --sport 0:0 --dport 0:0 -s 16.0.0.0/5 -d 8.0.0.0/5 -i eth1 -o eth0 -m state --state NEW,ESTABLISHED -j ACCEPT
--A FORWARD -p icmp --sport 0:0 --dport 0:0 -s 8.0.0.0/5 -d 16.0.0.0/5 -i eth0 -o eth1 -m state --state NEW,ESTABLISHED -j ACCEPT
+-A FORWARD -p icmp -s 16.0.0.0/5 -d 8.0.0.0/5 -i eth1 -o eth0 -j ACCEPT
+-A FORWARD -p icmp -s 8.0.0.0/5 -d 16.0.0.0/5 -i eth0 -o eth1 -j ACCEPT
 -A FORWARD -p tcp --sport 13053:13147 --dport 62170:62248 -s 24.0.0.0/5 -d 32.0.0.0/5 -i eth0 -o eth2 -m state --state NEW,ESTABLISHED -j ACCEPT
 -A FORWARD -p tcp --sport 62170:62248 --dport 13053:13147 -s 32.0.0.0/5 -d 24.0.0.0/5 -i eth2 -o eth0 -m state --state ESTABLISHED -j ACCEPT
 -A FORWARD -p tcp --sport 18729:18759 --dport 11045:11139 -s 32.0.0.0/5 -d 72.0.0.0/5 -i eth2 -o eth0 -m state --state NEW,ESTABLISHED -j ACCEPT
 -A FORWARD -p tcp --sport 11045:11139 --dport 18729:18759 -s 72.0.0.0/5 -d 32.0.0.0/5 -i eth0 -o eth2 -m state --state ESTABLISHED -j ACCEPT
--A FORWARD -p icmp --sport 0:0 --dport 0:0 -s 0.0.0.0/5 -d 32.0.0.0/5 -i eth0 -o eth2 -m state --state NEW,ESTABLISHED -j ACCEPT
--A FORWARD -p icmp --sport 0:0 --dport 0:0 -s 32.0.0.0/5 -d 0.0.0.0/5 -i eth2 -o eth0 -m state --state NEW,ESTABLISHED -j ACCEPT
+-A FORWARD -p icmp -s 0.0.0.0/5 -d 32.0.0.0/5 -i eth0 -o eth2 -j ACCEPT
+-A FORWARD -p icmp -s 32.0.0.0/5 -d 0.0.0.0/5 -i eth2 -o eth0 -j ACCEPT
 -A FORWARD -p udp --sport 15285:15297 --dport 27013:27038 -s 32.0.0.0/5 -d 72.0.0.0/5 -i eth2 -o eth0 -m state --state NEW,ESTABLISHED -j ACCEPT
 -A FORWARD -p tcp --sport 55744:55755 --dport 40779:40797 -s 32.0.0.0/5 -d 72.0.0.0/5 -i eth2 -o eth0 -m state --state NEW,ESTABLISHED -j ACCEPT
 -A FORWARD -p tcp --sport 40779:40797 --dport 55744:55755 -s 72.0.0.0/5 -d 32.0.0.0/5 -i eth0 -o eth2 -m state --state ESTABLISHED -j ACCEPT
