@@ -97,6 +97,7 @@ def createRules(G, testcase, OUTPUT_DIR, file):
             f = open(OUTPUT_DIR + filename + '/' + nodeDict[node]['id'], "a+")
             f.write('\n')
             f.write('COMMIT')
+            f.write('\n')
 
 
 def createGraph(testcase):
@@ -140,7 +141,7 @@ if __name__ == '__main__':
         os.mkdir(OUTPUT_DIR)
     else:
         shutil.rmtree(OUTPUT_DIR)   #if it delete it recursively
-        os.mkdir(OUTPUT_DIR) # create a new empty one 
+        os.mkdir(OUTPUT_DIR) # create a new empty one
 
     #print(INPUT_DIR, " ", OUTPUT_DIR)
     directory = os.fsencode(INPUT_DIR)
